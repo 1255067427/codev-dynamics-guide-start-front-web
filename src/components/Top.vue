@@ -22,13 +22,14 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 100px;
 
   .text {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 700;
   }
 }

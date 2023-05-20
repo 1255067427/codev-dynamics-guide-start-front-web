@@ -1,27 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Index from "@/views/Index.vue"
+import Videos from "@/components/Videos.vue"
+import VideosDrone from '@/components/VideosDrone'
+import VideosAviator from '@/components/VideosAviator'
+import ProductInfoSheet from '@/components/ProductInfoSheet'
+import ProductInfoSpec from '@/components/ProductInfoSpec'
+import ProductInfoIntroduction from '@/components/ProductInfoIntroduction'
 Vue.use(Router)
 
 const routes = [
     {
         path: '/',
-        name: '/',
-        component: () => import('../views/Index.vue')
+        component: Index,
     },
     {
         path: '/index',
-        name: 'Index',
-        component: () => import('../views/Index.vue')
-    },
-    {
-        path: '/top',
-        name: 'Top',
-        component: () => import('../components/Top.vue')
+        component: Index,
     },
 ]
 
 const router = new Router({
+    // mode: 'history',
     routes,
 })
 

@@ -15,5 +15,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="less">
+#app{
+  width: 1200px;
+  margin: auto;
+  background-color: #fff;
+  font-size: 24px;
+}
 </style>
