@@ -2,7 +2,7 @@
   <div class="index">
     <el-container>
       <el-header>
-        <Top class="border-top"/>
+        <Top class="border-top" />
       </el-header>
       <el-main>
         <ProductInfo />
@@ -35,7 +35,5 @@ export default {
 
 <style lang="less" scoped>
 .index {
-
-
 }
 </style>

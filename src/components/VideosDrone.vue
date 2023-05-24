@@ -5,7 +5,6 @@
         class="video"
         src="https://codev-dynamics.com/wp-content/uploads/2022/07/2.mp4"
         controls
-        poster="https://codev-dynamics.com/wp-content/uploads/2022/07/2.jpg"
       ></video>
       <video
         class="video"

@@ -1,54 +1,125 @@
 <template>
   <div class="sheet">
-    <ul class="ul">
-      <li class="li">
-        <el-link href="../pdf/a.pdf" :underline="false"
-          >产品手册_2304.pdf</el-link
-        >
-      </li>
-      <li class="li">
-        <el-link href="https://element.eleme.io" :underline="false"
-          >产品手册_2304.pdf</el-link
-        >
-      </li>
-      <li class="li">
-        <el-link href="https://element.eleme.io" :underline="false"
-          >产品手册_2304.pdf</el-link
-        >
-      </li>
-      <li class="li">
-        <el-link href="https://element.eleme.io" :underline="false"
-          >产品手册_2304.pdf</el-link
-        >
-      </li>
-    </ul>
-    
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      height="628px"
+      class="table"
+    >
+      <el-table-column type="index" label="#" width="200"> </el-table-column>
+      <el-table-column prop="name" label="title" width="300"> </el-table-column>
+      <el-table-column prop="date" label="Date" width="300"> </el-table-column>
+      <el-table-column align="right">
+        <template slot-scope="scope">
+          <el-button
+            size="small"
+            icon="el-icon-view"
+            type="primary"
+            @click="empId(scope.row.id)"
+            >Reference Doc.</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <div class="page">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-size="page.pageSize"
+        :total="page.total"
+        :current-page="page.pageNum"
+        @current-change="pagechange"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProductInfoSheet",
+  data() {
+    return {
+      tableData: [
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+      ],
+      page: {
+        pageNum: 1,
+        pageSize: 12,
+        total: 0,
+        name: "",
+      },
+    };
+  },
+  methods: {
+    pagechange(num) {
+      this.page.pageNum = num;
+      this.list();
+    },
+  },
 };
 </script>
 
 <style scoped lang="less">
 .sheet {
-  .ul {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    line-height: 45px;
-    .li {
-      height: 45px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding-left: 10px;
-
-    }
-
-    li:last-child{
-      border-bottom: 0;
-    }
+  .table {
   }
+  .page {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 24px;
+  }
+}
+.el-table::before {
+  height: 0px;
+}
+.customer-table .el-table__fixed-right::before,
+.el-table__fixed::before {
+  width: 0;
 }
 </style>

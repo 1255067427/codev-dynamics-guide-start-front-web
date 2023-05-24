@@ -1,9 +1,9 @@
 <template>
   <div class="videos">
-    <h1>Videos</h1>
+    <div class="title">Videos</div>
     <el-menu :default-active="activeIndex" class="menu" mode="horizontal">
-      <el-menu-item index="1" @click="isShow(1)">Drone</el-menu-item>
-      <el-menu-item index="2" @click="isShow(2)">Aviator</el-menu-item>
+      <el-menu-item class="item" index="1" @click="isShow(1)">Drone</el-menu-item>
+      <el-menu-item class="item" index="2" @click="isShow(2)">Aviator</el-menu-item>
     </el-menu>
     <VideosDrone v-if="droneShow"></VideosDrone>
     <VideosAviator v-if="aviatorShow"></VideosAviator>
@@ -46,6 +46,15 @@ export default {
   padding-top: 50px;
   .menu {
     margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .item{
+    font-size: 20px;
   }
 }
 </style>
