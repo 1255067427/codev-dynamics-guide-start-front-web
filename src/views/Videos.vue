@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import VideosDrone from "./VideosDrone.vue";
-import VideosAviator from "./VideosAviator.vue";
+import VideosDrone from "../components/videos/VideosDrone.vue";
+import VideosAviator from "../components/videos/VideosAviator.vue";
 export default {
   name: "Videos",
   components: {

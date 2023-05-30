@@ -1,11 +1,6 @@
 <template>
-  <div class="sheet">
-    <el-table
-      :data="tableData"
-      style="width: 100%"
-      height="628px"
-      class="table"
-    >
+  <div class="introduction">
+    <el-table :data="tableData" style="width: 100%" height="628px">
       <el-table-column type="index" label="#" width="200"> </el-table-column>
       <el-table-column prop="name" label="title" width="300"> </el-table-column>
       <el-table-column prop="date" label="Date" width="300"> </el-table-column>
@@ -16,7 +11,14 @@
             icon="el-icon-view"
             type="primary"
             @click="empId(scope.row.id)"
-            >Reference Doc.</el-button
+            >Reference Doc</el-button
+          >
+          <el-button
+            size="small"
+            icon="el-icon-download"
+            type="primary"
+            @click="empId(scope.row.id)"
+            >Download</el-button
           >
         </template>
       </el-table-column>
@@ -38,29 +40,10 @@
 
 <script>
 export default {
-  name: "ProductInfoSheet",
+  name: "ProductInfoIntroduction",
   data() {
     return {
       tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
         {
           date: "2016-05-03",
           name: "王小虎",
@@ -95,19 +78,17 @@ export default {
       },
     };
   },
-  methods: {
+  methods:{
     pagechange(num) {
       this.page.pageNum = num;
       this.list();
     },
-  },
+  }
 };
 </script>
 
 <style scoped lang="less">
-.sheet {
-  .table {
-  }
+.introduction {
   .page {
     display: flex;
     flex-direction: row;
@@ -122,4 +103,5 @@ export default {
 .el-table__fixed::before {
   width: 0;
 }
+
 </style>

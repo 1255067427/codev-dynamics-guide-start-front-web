@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import ProductInfoSheet from "./ProductInfoSheet.vue";
-import ProductInfoSpec from "./ProductInfoSpec.vue";
-import ProductInfoIntroduction from "./ProductInfoIntroduction.vue";
+import ProductInfoSheet from "../components/productInfo/ProductInfoSheet.vue";
+import ProductInfoSpec from "../components/productInfo/ProductInfoSpec.vue";
+import ProductInfoIntroduction from "../components/productInfo/ProductInfoIntroduction.vue";
 export default {
   name: "ProductInfo",
   components: {

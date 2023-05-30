@@ -11,7 +11,14 @@
             icon="el-icon-view"
             type="primary"
             @click="empId(scope.row.id)"
-            >Reference Doc.</el-button
+            >Reference Doc</el-button
+          >
+          <el-button
+            size="small"
+            icon="el-icon-download"
+            type="primary"
+            @click="empId(scope.row.id)"
+            >Download</el-button
           >
         </template>
       </el-table-column>

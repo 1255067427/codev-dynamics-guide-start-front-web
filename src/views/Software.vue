@@ -17,9 +17,9 @@
 </template>
   
   <script>
-import SoftwareDrone from "@/components/SoftwareDrone.vue";
-import SoftwareAviator from "@/components/SoftwareAviator.vue";
-import SoftwareDesktop from "@/components/SoftwareDesktop.vue";
+import SoftwareDrone from "@/components/software/SoftwareDrone.vue";
+import SoftwareAviator from "@/components/software/SoftwareAviator.vue";
+import SoftwareDesktop from "@/components/software/SoftwareDesktop.vue";
 export default {
   name: "Software",
   components: {
