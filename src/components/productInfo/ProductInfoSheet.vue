@@ -55,14 +55,15 @@ export default {
         pageNum: 1,
         pageSize: 10,
         total: 0,
+        type: 1,
       },
     };
   },
   methods: {
-    sheetList() {
+    list() {
       let that = this;
       axios({
-        url: "/productInfo/sheetList",
+        url: "/productInfo/list",
         method: "post",
         data: this.page,
         headers: {
@@ -88,8 +89,7 @@ export default {
           "Content-Type": "application/json; charset=utf-8",
         },
       }).then((res) => {
-        console.log(res);
-        window.open(res.data.data);
+        window.open(res.data.msg);
       });
     },
     download(id) {
@@ -99,15 +99,15 @@ export default {
         data: id,
         headers: {
           "Content-Type": "application/json; charset=utf-8",
+          "Content-Disposition": "attachment=filename;",
         },
       }).then((res) => {
-        console.log(res);
-        window.location.href = res.data.msg;
+        window.location.href = res.data.data;
       });
     },
   },
   beforeMount() {
-    this.sheetList();
+    this.list();
   },
 };
 </script>

@@ -25,7 +25,7 @@ export default {
   components: {
     SoftwareDrone,
     SoftwareAviator,
-    SoftwareDesktop,
+    SoftwareDesktop, 
   },
   data() {
     return {

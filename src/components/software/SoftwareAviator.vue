@@ -6,61 +6,123 @@
         style="height: 200px; background-color: #fff; margin-right: 20px"
         class="aside"
       >
-        <el-menu default-active="2" class="el-menu-vertical-demo">
-          <el-menu-item index="1" @click="isShow(1)">
-            <span slot="title">Android</span>
-          </el-menu-item>
-          <el-menu-item index="2" @click="isShow(2)">
-            <span slot="title">H7</span>
-          </el-menu-item>
-          <el-menu-item index="3" @click="isShow(3)">
-            <span slot="title">App</span>
+        <el-menu
+          :default-active="JSON.stringify(menu[0].id)"
+          class="el-menu-vertical-demo"
+        >
+          <el-menu-item
+            :index="JSON.stringify(item.id)"
+            v-for="(item, index) in menu"
+            :key="index"
+            @click="softMenuType(item.id)"
+          >
+            <span slot="title">{{ item.name }}</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <SoftwareAviatorAndroid
-        v-if="softwareAviatorAndroidShow"
-      ></SoftwareAviatorAndroid>
-      <SoftwareAviatorH7 v-if="softwareAviatorH7Show"></SoftwareAviatorH7>
-      <SoftwareAviatorApp v-if="softwareAviatorAppShow"></SoftwareAviatorApp>
+      <el-table
+        :data="tableData"
+        style="width: 990px"
+        class="table"
+        height="500px"
+      >
+        <el-table-column prop="title" label="Title" width="250">
+        </el-table-column>
+        <el-table-column
+          class="version"
+          prop="version"
+          label="Version"
+          width="140"
+          class-name="version"
+        >
+        </el-table-column>
+        <el-table-column prop="date" label="Date" width="140">
+        </el-table-column>
+        <el-table-column prop="note" label="Note" width="300">
+        </el-table-column>
+        <el-table-column align="right">
+          <template slot-scope="scope">
+            <el-button
+              size="small"
+              icon="el-icon-download"
+              type="primary"
+              @click="download(scope.row.id)"
+              >Download</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
     </el-container>
   </div>
 </template>
 
 <script>
-import SoftwareAviatorAndroid from "./SoftwareAviatorAndroid.vue";
-import SoftwareAviatorH7 from "./SoftwareAviatorH7.vue";
-import SoftwareAviatorApp from "./SoftwareAviatorApp.vue";
+import axios from "axios";
 export default {
   name: "SoftwareAviator",
-  components: {
-    SoftwareAviatorAndroid,
-    SoftwareAviatorH7,
-    SoftwareAviatorApp,
-  },
+  components: {},
   data() {
     return {
-      softwareAviatorAndroidShow: true,
-      softwareAviatorH7Show: false,
-      softwareAviatorAppShow: false,
+      tableData: [],
+      type: 2,
+      menu: [{}],
+      page: {
+        pageNum: 1,
+        pageSize: 10,
+        total: 0,
+        type: 1,
+      },
     };
   },
   methods: {
-    isShow(index) {
-      if (index == "1") {
-        this.softwareAviatorAndroidShow = true;
-        this.softwareAviatorH7Show = false;
-        this.softwareAviatorAppShow = false;
-      } else if (index == "2") {
-        this.softwareAviatorH7Show = true;
-        this.softwareAviatorAndroidShow = false;
-        this.softwareAviatorAppShow = false;
-      } else if (index == "3") {
-        this.softwareAviatorAppShow = true;
-        this.softwareAviatorAndroidShow = false;
-        this.softwareAviatorH7Show = false;
-      }
+    menuList() {
+      let that = this;
+      axios({
+        url: "/software/menu/list",
+        method: "post",
+        data: this.type,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }).then((res) => {
+        that.menu = res.data.data;
+      });
     },
+    softMenuType(type) {
+      this.page.type = type;
+      this.softwareList();
+    },
+    softwareList() {
+      let that = this;
+      axios({
+        url: "/software/list",
+        method: "post",
+        data: this.page,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }).then((res) => {
+        that.tableData = res.data.data.records;
+      });
+    },
+    download(id) {
+      axios({
+        url: "/software/download",
+        method: "post",
+        data: id,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }).then((res) => {
+        window.location.href = res.data.msg;
+      });
+    }
+  },
+  beforeMount() {
+    this.softwareList();
+  },
+  created() {
+    this.menuList();
   },
 };
 </script>
