@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="softwareDrone">
     <el-container>
       <el-aside
         width="150px"
@@ -53,13 +53,24 @@
         </el-table-column>
       </el-table>
     </el-container>
+    <div class="page">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-size="page.pageSize"
+        :total="page.total"
+        :current-page="page.pageNum"
+        @current-change="pagechange"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "SoftwareAviator",
+  name: "SoftwareDrone",
   components: {},
   data() {
     return {
@@ -70,7 +81,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         total: 0,
-        type: 1,
+        menuType:2,
       },
     };
   },
@@ -78,7 +89,7 @@ export default {
     menuList() {
       let that = this;
       axios({
-        url: "/software/menu/list",
+        url: "/software/menu/front/list",
         method: "post",
         data: this.type,
         headers: {
@@ -87,6 +98,10 @@ export default {
       }).then((res) => {
         that.menu = res.data.data;
       });
+    },
+    pagechange(num) {
+      this.page.pageNum = num;
+      this.list();
     },
     softMenuType(type) {
       this.page.type = type;
@@ -114,9 +129,9 @@ export default {
           "Content-Type": "application/json; charset=utf-8",
         },
       }).then((res) => {
-        window.location.href = res.data.msg;
+        window.open(res.data.data);
       });
-    }
+    },
   },
   beforeMount() {
     this.softwareList();
@@ -128,11 +143,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.softwareDrone {
+  .page {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 24px; 
+  }
+}
+
 .el-menu {
   border-left: solid 1px #e6e6e6;
   border-right: solid 1px #e6e6e6;
   .el-menu-item {
     border-bottom: solid 1px #e6e6e6;
   }
+}
+.el-table::before {
+  height: 0px;
 }
 </style>

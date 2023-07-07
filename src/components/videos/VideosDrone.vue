@@ -1,7 +1,7 @@
 <template>
   <div class="videosDrone">
-    <ul class="videos" v-for="(item, index) in videos" :key="index">
-      <li>
+    <ul class="videos">
+      <li v-for="(item, index) in videos" :key="index">
         <div class="item">
           <el-button type="text" @click="check(item.id)">
             <video class="video" :src="item.url"></video>
@@ -60,6 +60,7 @@ export default {
         pageNum: 1,
         pageSize: 6,
         total: 0,
+        type: 1,
       },
     };
   },
@@ -70,7 +71,7 @@ export default {
     list() {
       let that = this;
       axios({
-        url: "/videos/droneList",
+        url: "/videos/list",
         method: "post",
         data: this.page,
         headers: {
@@ -123,19 +124,20 @@ export default {
     justify-content: flex-start;
 
     li {
-      padding-right: 22px;
+      padding-right: 20px;
 
       .item {
         position: relative;
+        width: 373px;
         .video {
-          width: 370px;
-          border-radius: 15px;
+          width: 373px;
+          border-radius: 16px;
         }
 
-        .play {
+        .play {  
           position: absolute;
           top: 93px;
-          left: 160px;
+          left: 160px;                     
           width: 50px;
           height: 50px;
           font-size: 40px;
@@ -173,7 +175,6 @@ export default {
     padding-right: 0;
   }
 }
-
 .bigVideo {
   padding-top: 50px;
 }

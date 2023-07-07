@@ -1,8 +1,14 @@
 <template>
-  <div class="introduction">
-    <el-table :data="tableData" style="width: 100%" height="628px">
+  <div class="sheet">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      height="628px"
+      class="table"
+    >
       <el-table-column type="index" label="#" width="200"> </el-table-column>
-      <el-table-column prop="name" label="title" width="300"> </el-table-column>
+      <el-table-column prop="title" label="Title" width="300">
+      </el-table-column>
       <el-table-column prop="date" label="Date" width="300"> </el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
@@ -10,20 +16,19 @@
             size="small"
             icon="el-icon-view"
             type="primary"
-            @click="empId(scope.row.id)"
-            >Reference Doc</el-button
+            @click="reference(scope.row.id)"
+            >Reference</el-button
           >
           <el-button
             size="small"
             icon="el-icon-download"
             type="primary"
-            @click="empId(scope.row.id)"
+            @click="download(scope.row.id)"
             >Download</el-button
           >
         </template>
       </el-table-column>
     </el-table>
-
     <div class="page">
       <el-pagination
         background
@@ -39,56 +44,78 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: "ProductInfoIntroduction",
+  name: "ProductInfoSheet",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
+      tableData: [],
+      url: "",
       page: {
         pageNum: 1,
-        pageSize: 12,
+        pageSize: 10,
         total: 0,
-        name: "",
+        type: 3,
       },
     };
   },
-  methods:{
+  methods: {
+    list() {
+      let that = this;
+      axios({
+        url: "/productInfo/list",
+        method: "post",
+        data: this.page,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }).then((res) => {
+        that.tableData = res.data.data.records;
+        if (res.data.data) {
+          that.page.total = res.data.data.total;
+        }
+      });
+    },
     pagechange(num) {
       this.page.pageNum = num;
       this.list();
     },
-  }
+    reference(id) {
+      axios({
+        url: "/productInfo/reference",
+        method: "post",
+        data: id,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }).then((res) => {
+        window.open(res.data.msg);
+      });
+    },
+    download(id) {
+      axios({
+        url: "/productInfo/download",
+        method: "post",
+        data: id,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Disposition": "attachment=filename;",
+        },
+      }).then((res) => {
+        window.location.href = res.data.data;
+      });
+    },
+  },
+  beforeMount() {
+    this.list();
+  },
 };
 </script>
 
 <style scoped lang="less">
-.introduction {
+.sheet {
+  .table {
+  }
   .page {
     display: flex;
     flex-direction: row;
@@ -103,5 +130,4 @@ export default {
 .el-table__fixed::before {
   width: 0;
 }
-
 </style>

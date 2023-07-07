@@ -81,7 +81,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         total: 0,
-        type:1,
+        menuType:1,
       },
     };
   },
@@ -89,7 +89,7 @@ export default {
     menuList() {
       let that = this;
       axios({
-        url: "/software/menu/list",
+        url: "/software/menu/front/list",
         method: "post",
         data: this.type,
         headers: {
@@ -129,7 +129,7 @@ export default {
           "Content-Type": "application/json; charset=utf-8",
         },
       }).then((res) => {
-        window.location.href = res.data.msg;
+        window.open(res.data.data);
       });
     },
   },

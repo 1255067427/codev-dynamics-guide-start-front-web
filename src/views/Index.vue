@@ -8,7 +8,7 @@
         <ProductInfo />
         <Videos />
         <Software />
-        <ForDeveloper/>
+        <!-- <ForDeveloper/> -->
       </el-main>
     </el-container>
   </div>
